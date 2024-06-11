@@ -4,7 +4,7 @@ IMG := kernel8.img
 TRIPLE := aarch64-none-none-elf
 SWIFT := swift
 SWIFT_BUILD_FLAGS := --triple $(TRIPLE) -c release -Xswiftc -Osize \
-					 --experimental-lto-mode=full -Xswiftc -experimental-hermetic-seal-at-link
+					 --experimental-lto-mode=thin -Xswiftc -experimental-hermetic-seal-at-link
 LD := clang -fuse-ld=lld
 LDFLAGS := -target $(TRIPLE) -nostdlib -Xlinker -gc-sections -static
 OBJCOPY := llvm-objcopy
@@ -25,7 +25,7 @@ swift:
 
 .PHONY: run
 run: all
-	$(QEMU) -machine raspi3b -kernel $(IMG) -serial stdio -display none
+	$(QEMU) -machine raspi4b -kernel $(IMG) -serial stdio -display none
 
 .PHONY: clean
 clean:
